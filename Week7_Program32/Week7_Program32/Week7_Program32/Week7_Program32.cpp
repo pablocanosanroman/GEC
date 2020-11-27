@@ -5,9 +5,9 @@
 #include <string>
 using namespace std;
 
-int height();
-int weight();
-void output_bmi(int weight, int height);
+float height();
+float weight();
+void output_bmi(float weight, float height);
 
 int total_inches, total_weight;
 
@@ -29,7 +29,7 @@ int main()
 	output_bmi(total_weight, total_inches);
 }
 
-int height()
+float height()
 {
 	int inches, feet;
 	while (true)
@@ -76,7 +76,7 @@ int height()
 	return total_inches;
 }
 
-int weight()
+float weight()
 {
 	int stone, pounds;
 	while (true)
@@ -115,13 +115,13 @@ int weight()
 
 	}
 
-	total_weight = (stone / 12) + pounds;
+	total_weight = (stone * 12) + pounds;
 	cout << "Your total weight in pounds is: " << total_weight << endl;
 	return total_weight;
 }
 
-void output_bmi(int weight, int height)
+void output_bmi( float weight, float height)
 {
-	double bmi = (weight * 703) / (height ^ 2);
+	float bmi = ((weight * 703) / (height * height));
 	cout << "Your BMI is: " << bmi << endl;
 }
