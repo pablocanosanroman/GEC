@@ -16,6 +16,7 @@ int main()
 	comma2blank(pUser_text);
 
 	std::cout << "Your text now is: " << pUser_text;
+
 }
 
 void comma2blank(char* textToChange)
