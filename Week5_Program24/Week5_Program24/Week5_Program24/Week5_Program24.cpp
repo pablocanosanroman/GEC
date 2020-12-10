@@ -1,99 +1,90 @@
 #include <iostream>
 using namespace std;
 
-char card_Faces[10] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
-int board_cards[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-bool cards_found[10] = { false, false, false, false, false, false, false, false, false, false };
+char Cards[2][5] = {
+    { 'A', 'D', 'C', 'B', 'E' },
+    { 'D', 'B', 'A', 'E', 'C' }
+};
 
-int attempt_count = 1, score = 0;
-bool playing = true;
+bool matched[2][5] = {
+    { false, false, false, false, false },
+    { false, false, false, false, false }
+};
 
-void DrawBoard();
-void DrawBoard(int input1, int input2);
+int attemptCount = 0;
+int matches = 0;
+
+void InitialBoard();
+void UpdateBoard(int guess1, int guess2);
 
 int main()
 {
-	while (playing)
-	{
-		DrawBoard();
+    int g1, g2;
+    InitialBoard();
 
-		int guess1, guess2;
+    while (matches < 5)
+    {
+        cout << "Pick a card from the left:" << endl;
+        cin >> g1;
 
-		cout << "\nPlease enter your first guess: ";
-		cin >> guess1;
-		cout << "Please enter now your second guess: ";
-		cin >> guess2;
+        cout << "Pick a card from the right:" << endl;
+        cin >> g2;
 
-		DrawBoard(guess1, guess2);
-
-		for (int i = 0; i <= 10; i++)
-		{
-			if (guess1 == board_cards[i - 1] || guess2 == board_cards[i - 1])
-			{
-				cards_found[i - 1] = true;
-				score++;
-			}
-			
-		}
-
-		if (score >= 5)
-		{
-			cout << endl << "Congratulations! You have won the game!" << endl;
-			playing = false; 
-		}
-		else
-		{
-			attempt_count++;
-		}
-	}
+        UpdateBoard(g1, g2);
+    }
 }
 
-void DrawBoard()
-{
-	system("cls"); //this will clear the board of any turns
+void InitialBoard() {
+    system("cls");
+    cout << "Attempts:\t" << ++attemptCount << endl;
 
-	cout << "Total attempts: " << attempt_count << endl;
-
-	for (int i = 0; i < 10; i++)
-	{
-		if (cards_found[i])
-		{
-			cout << "[" << i + 1 << "]";
-		}
-		else
-		{
-			cout << "[" << card_Faces[i] << "]";
-		}
-
-		if (i == 4)
-		{
-			cout << endl;
-		}
-	}
+    for (int i = 0; i < 5; i++) {
+        if (matched[0][i]) {
+            cout << "[" << Cards[0][i] << "] ";
+        }
+        else {
+            cout << "[" << i + 1 << "] ";
+        }
+        if (matched[1][i]) {
+            cout << "[" << Cards[1][i] << "] ";
+        }
+        else {
+            cout << "[" << i + 1 << "] ";
+        }
+        cout << endl;
+    }
 }
 
-void DrawBoard(int input1, int input2)
-{
-	system("cls"); //this will clear the board of any turns
+void UpdateBoard(int guess1, int guess2) {
 
-	cout << "Total attempts: " << attempt_count << endl;
+    system("cls");
+    cout << "Attempts:\t" << ++attemptCount << endl;
 
-	for (int i = 0; i < 10; i++)
-	{
-		if (cards_found[i] || (input1 == i + 1 || input2 == i + 1))
-		{
-			cout << "[" << i + 1 << "]";
-		}
-		else
-		{
-			cout << "[" << card_Faces[i] << "]";
-		}
+    if (Cards[0][guess1 - 1] == Cards[1][guess2 - 1]) 
+    {
+        cout << "Cards revealed." << endl;
+        matched[0][guess1 - 1] = true;
+        matched[1][guess2 - 1] = true;
+        matches++;
+    }
+    else 
+    {
+        cout << "No cards revealed." << endl;
+    }
 
-		if (i == 4)
-		{
-			cout << endl;
-		}
-	}
+    for (int i = 0; i < 5; i++) {
+        if (matched[0][i]) {
+            cout << "[" << Cards[0][i] << "] ";
+        }
+        else {
+            cout << "[" << i + 1 << "] ";
+        }
+        if (matched[1][i]) {
+            cout << "[" << Cards[1][i] << "] ";
+        }
+        else {
+            cout << "[" << i + 1 << "] ";
+        }
+        cout << endl;
+    }
 }
-
-
