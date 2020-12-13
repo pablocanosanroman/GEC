@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+using std::setw;
 
 struct player_details
 {
@@ -37,7 +38,7 @@ int main()
         {
             while_loop1 = true;
 
-            outFile.open("scores.txt", std::ios::out | std::ios::trunc);
+            outFile.open("scores.txt", std::ios::out | std::ios::app);
 
             while (while_loop1)
             {
@@ -76,7 +77,7 @@ int main()
         else if (player_choice == 2)
         {
             while_loop1 = true;
-            outFile.open("scores.txt", std::ios::out | std::ios::trunc);
+            outFile.open("scores.txt", std::ios::out | std::ios::app);
 
             if (outFile.is_open())
             {
@@ -84,10 +85,11 @@ int main()
                 {
                     for (int i = 1; i < 11; i++)
                     {
+                       
                         Score_display(user_details);
-
-                        std::cout << "Name: " << user_details[i].name << std::endl;
-                        std::cout << "Score: " << user_details[i].score << std::endl;
+                        
+                        std::cout << "Name: " << setw(7) << user_details[i].name << std::endl;
+                        std::cout << "Score: " << setw(7) <<  user_details[i].score << std::endl;
                        
                     }
                     while_loop1 = false;
@@ -116,6 +118,7 @@ void Score_display(player_details players[11])
     {
         for (int j = 1; i < 11; i++)
         {
+            
             if (players[j].score < players[j + 1].score)
             {
                 int Temp = players[j].score;

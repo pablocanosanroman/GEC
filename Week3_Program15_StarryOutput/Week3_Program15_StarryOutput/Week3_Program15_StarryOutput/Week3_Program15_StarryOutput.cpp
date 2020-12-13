@@ -21,15 +21,19 @@ int main()
     }
     
     char play_again;
+    bool play = true;
 
-    
+    while(play)
+    {
         cout << "Do you want another go? Y or N" << endl;
         cin >> play_again;
+
+
 
         switch (play_again)
         {
         case 'Y':
-            
+
             cout << "Please enter a number between 1 and 10" << endl;
             cin >> num3;
 
@@ -43,20 +47,22 @@ int main()
 
                 cout << "\n";
             }
+
             break;
-            
-        
+
 
         case 'N':
+            play = false;
             cout << "Goodbye";
 
+
             break;
+
 
         default:
             cout << "That's not Y or N" << endl;
         }
-    
-    
+    }
 
     return 0;
 
